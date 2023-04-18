@@ -22,10 +22,9 @@ import { LoggerService } from './logger.service';
     </div>
   </div>
   `,
-  providers:  [ LoggerService ]
+  providers: [LoggerService],
 })
 export class PeekABooParentComponent {
-
   hasChild = false;
   hookLog: string[] = [];
 
@@ -43,8 +42,9 @@ export class PeekABooParentComponent {
       this.heroName = 'Windstorm';
       this.logger.clear(); // clear log on create
     }
-    this.hookLog = this.logger.logs;
-    this.logger.tick();
+    this.logger.tick_then(() => {
+      this.hookLog = this.logger.logs;
+    });
   }
 
   updateHero() {
@@ -52,7 +52,6 @@ export class PeekABooParentComponent {
     this.logger.tick();
   }
 }
-
 
 /*
 Copyright Google LLC. All Rights Reserved.
