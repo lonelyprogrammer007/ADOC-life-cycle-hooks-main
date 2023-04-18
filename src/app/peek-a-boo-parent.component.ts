@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 
 import { LoggerService } from './logger.service';
 
@@ -31,25 +31,22 @@ export class PeekABooParentComponent {
   heroName = 'Windstorm';
   private logger: LoggerService;
 
-  constructor(logger: LoggerService) {
+  constructor(logger: LoggerService, private cd: ChangeDetectorRef) {
     this.logger = logger;
     this.hookLog = logger.logs;
   }
 
   toggleChild() {
     this.hasChild = !this.hasChild;
+    this.cd.detectChanges();
     if (this.hasChild) {
       this.heroName = 'Windstorm';
-      this.logger.clear(); // clear log on create
     }
-    this.logger.tick_then(() => {
-      this.hookLog = this.logger.logs;
-    });
   }
 
   updateHero() {
     this.heroName += '!';
-    this.logger.tick();
+    this.cd.detectChanges();
   }
 }
 
