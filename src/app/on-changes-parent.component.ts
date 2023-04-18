@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, DoCheck, ViewChild } from '@angular/core';
 
 import { Hero } from './hero';
 import { OnChangesComponent } from './on-changes.component';
@@ -6,7 +6,7 @@ import { OnChangesComponent } from './on-changes.component';
 @Component({
   selector: 'on-changes-parent',
   templateUrl: './on-changes-parent.component.html',
-  styles: ['']
+  styles: [''],
 })
 export class OnChangesParentComponent {
   hero!: Hero;
@@ -15,20 +15,19 @@ export class OnChangesParentComponent {
   @ViewChild(OnChangesComponent) childView!: OnChangesComponent;
 
   constructor() {
-    this.reset();
+    this.initializeValues();
   }
 
   reset() {
-    // new Hero object every time; triggers onChanges
-    this.hero = new Hero('Windstorm');
-    // setting power only triggers onChanges if this value is different
-    this.power = 'sing';
-    if (this.childView) {
-      this.childView.reset();
-    }
+    this.childView.reset();
+    this.initializeValues();
+  }
+
+  initializeValues() {
+    this.hero = new Hero('Windstorm reset');
+    this.power = 'sing reset';
   }
 }
-
 
 /*
 Copyright Google LLC. All Rights Reserved.

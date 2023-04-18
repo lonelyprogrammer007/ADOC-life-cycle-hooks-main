@@ -1,4 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  DoCheck,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 
 import { Hero } from './hero';
 
@@ -11,7 +18,7 @@ import { Hero } from './hero';
     <h3>Change Log</h3>
     <div *ngFor="let chg of changeLog" class="log">{{chg}}</div>
   </div>
-  `
+  `,
 })
 export class OnChangesComponent implements OnChanges {
   @Input() hero!: Hero;
@@ -20,17 +27,21 @@ export class OnChangesComponent implements OnChanges {
   changeLog: string[] = [];
 
   ngOnChanges(changes: SimpleChanges) {
+    console.warn('ngOnChanges() HIJO');
     for (const propName in changes) {
       const chng = changes[propName];
-      const cur  = JSON.stringify(chng.currentValue);
+      const cur = JSON.stringify(chng.currentValue);
       const prev = JSON.stringify(chng.previousValue);
-      this.changeLog.push(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+      this.changeLog.push(
+        `${propName}: currentValue = ${cur}, previousValue = ${prev}`
+      );
     }
   }
 
-  reset() { this.changeLog = []; }
+  reset() {
+    this.changeLog = [];
+  }
 }
-
 
 /*
 Copyright Google LLC. All Rights Reserved.

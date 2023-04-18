@@ -26,12 +26,11 @@ import { PeekABooComponent } from './peek-a-boo.component';
 
 import { SpyParentComponent } from './spy.component';
 import { SpyDirective } from './spy.directive';
+import { ParentDirective } from './parent.directive';
+import { ChildDirective } from './child.directive';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule
-  ],
+  imports: [BrowserModule, FormsModule],
   declarations: [
     AppComponent,
     AfterContentParentComponent,
@@ -49,12 +48,13 @@ import { SpyDirective } from './spy.directive';
     PeekABooParentComponent,
     PeekABooComponent,
     SpyParentComponent,
-    SpyDirective
+    SpyDirective,
+    ParentDirective,
+    ChildDirective,
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}
 
 /*
 Copyright Google LLC. All Rights Reserved.
