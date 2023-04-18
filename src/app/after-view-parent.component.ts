@@ -15,21 +15,20 @@ import { LoggerService } from './logger.service';
     <div *ngFor="let msg of logger.logs" class="log">{{msg}}</div>
   </div>
   `,
-  providers: [LoggerService]
+  providers: [LoggerService],
 })
 export class AfterViewParentComponent {
   show = true;
 
-  constructor(public logger: LoggerService) { }
+  constructor(public logger: LoggerService) {}
 
   reset() {
     this.logger.clear();
     // quickly remove and reload AfterViewComponent which recreates it
     this.show = false;
-    this.logger.tick_then(() => this.show = true);
+    this.logger.tick_then(() => (this.show = true));
   }
 }
-
 
 /*
 Copyright Google LLC. All Rights Reserved.

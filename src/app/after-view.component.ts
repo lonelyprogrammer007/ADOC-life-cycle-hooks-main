@@ -1,29 +1,36 @@
-import { AfterViewChecked, AfterViewInit, Component, ViewChild } from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ViewChild,
+} from '@angular/core';
 
 import { ChildViewComponent } from './child-view.component';
 import { LoggerService } from './logger.service';
 
 @Component({
   selector: 'after-view',
-  template: `
+  template:
+    `
     <div>child view begins</div>
       <app-child-view></app-child-view>
     <div>child view ends</div>
-  `
-   + `
+  ` +
+    `
     <p *ngIf="comment" class="comment">
       {{comment}}
     </p>
-  `
+  `,
 })
-export class AfterViewComponent implements  AfterViewChecked, AfterViewInit {
+export class AfterViewComponent implements AfterViewChecked, AfterViewInit {
   comment = '';
   private prevHero = '';
 
   // Query for a VIEW child of type `ChildViewComponent`
   @ViewChild(ChildViewComponent) viewChild!: ChildViewComponent;
 
-  constructor(private logger: LoggerService) {
+  constructor(private logger: LoggerService, private cd: ChangeDetectorRef) {
     this.logIt('AfterView constructor');
   }
 
@@ -49,7 +56,9 @@ export class AfterViewComponent implements  AfterViewChecked, AfterViewInit {
     const c = this.viewChild.hero.length > 10 ? "That's a long name" : '';
     if (c !== this.comment) {
       // Wait a tick because the component's view has already been checked
-      this.logger.tick_then(() => this.comment = c);
+      // this.logger.tick_then(() => (this.comment = c));
+      this.comment = c;
+      this.cd.detectChanges();
     }
   }
 
@@ -60,7 +69,6 @@ export class AfterViewComponent implements  AfterViewChecked, AfterViewInit {
   }
   // ...
 }
-
 
 /*
 Copyright Google LLC. All Rights Reserved.
