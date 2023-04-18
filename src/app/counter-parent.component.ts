@@ -17,7 +17,7 @@ import { LoggerService } from './logger.service';
     <div *ngFor="let msg of spyLog" class="log">{{msg}}</div>
   </div>
   `,
-  providers: [LoggerService]
+  providers: [LoggerService],
 })
 export class CounterParentComponent {
   value = 0;
@@ -42,7 +42,6 @@ export class CounterParentComponent {
     this.logger.tick();
   }
 }
-
 
 /*
 Copyright Google LLC. All Rights Reserved.
